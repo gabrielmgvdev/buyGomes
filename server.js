@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Stripe = require('stripe');
+const path = require('path');
 require('dotenv').config();
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -12,7 +13,7 @@ app.use(express.static('public')); // Para servir arquivos estáticos, se necess
 
 // Rota para servir o HTML
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.get('/payment', (req, res) => {
