@@ -3,157 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Pagamento</title>
-    <script src="https://js.stripe.com/v3/"></script>
+    <title>Landing Page</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
             margin: 0;
             padding: 0;
+            background-color: #f0f8ff;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-        }
-        .container {
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
             text-align: center;
+            color: #333;
         }
         h1 {
-            margin-bottom: 20px;
-            font-weight: 700;
+            font-size: 3rem;
+            margin: 0;
             color: #4A90E2;
         }
-        .form-group {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: #4A4A4A;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-            box-sizing: border-box;
-            transition: border-color 0.3s;
-        }
-        input:focus {
-            border-color: #4A90E2;
-            outline: none;
-        }
-        #card-element {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            height: 40px;
-            margin-bottom: 10px;
-            transition: border-color 0.3s;
-        }
-        #card-element.focus {
-            border-color: #4A90E2;
-        }
-        #card-errors {
-            color: red;
-            margin-top: 10px;
+        p {
+            font-size: 1.25rem;
+            margin: 20px 0;
+            max-width: 600px;
+            line-height: 1.5;
         }
         button {
             background-color: #4A90E2;
             color: white;
             border: none;
-            padding: 10px;
-            border-radius: 4px;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1.2rem;
             cursor: pointer;
-            font-size: 16px;
-            width: 100%;
             transition: background-color 0.3s;
         }
         button:hover {
             background-color: #357ABD;
         }
-        .footer {
-            margin-top: 20px;
-            font-size: 14px;
+        footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.875rem;
             color: #666;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Bem-vindo à API de Pagamento</h1>
-        <form id="payment-form">
-            <div class="form-group">
-                <label for="name">Nome</label>
-                <input type="text" id="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" required>
-            </div>
-            <div class="form-group">
-                <label for="card-element">Cartão de Crédito</label>
-                <div id="card-element"></div>
-                <div id="card-errors" role="alert"></div>
-            </div>
-            <button type="submit">Pagar</button>
-        </form>
-        <div class="footer">
-            &copy; 2024 Seu Nome. Todos os direitos reservados.
-        </div>
-    </div>
-
-    <script>
-        const stripe = Stripe('pk_test_51QCONNGgR9Gvb0GXxioe6eA2nR9MV2yWFgDS3s56s91r0rRsZCPDwZKXFWzpJWCvYhQ8OSqvBvmbywxl0roCEvwv00NSm9Xnse'); // Substitua pela sua chave pública
-        const elements = stripe.elements();
-        const cardElement = elements.create('card');
-        cardElement.mount('#card-element');
-
-        const form = document.getElementById('payment-form');
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const { paymentMethod, error } = await stripe.createPaymentMethod({
-                type: 'card',
-                card: cardElement,
-                billing_details: {
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                },
-            });
-
-            if (error) {
-                // Exibe erro ao usuário
-                document.getElementById('card-errors').innerText = error.message;
-            } else {
-                // Enviar paymentMethod.id para o seu servidor
-                const response = await fetch('/api/payment', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ payment_method: paymentMethod.id }),
-                });
-
-                const paymentResponse = await response.json();
-                if (paymentResponse.success) {
-                    alert('Pagamento realizado com sucesso!');
-                } else {
-                    alert('Falha no pagamento: ' + paymentResponse.error);
-                }
-            }
-        });
-    </script>
+    <h1>Bem-vindo ao Nosso Serviço</h1>
+    <p>Descubra como nossas soluções podem ajudá-lo a simplificar sua vida. Preencha o formulário e faça seu pagamento em poucos minutos!</p>
+    <a href="payment.html">
+        <button>Começar</button>
+    </a>
+    <footer>
+        &copy; 2024 Seu Nome. Todos os direitos reservados.
+    </footer>
 </body>
 </html>
