@@ -28,7 +28,7 @@ app.post('/api/payment', async (req, res) => {
             currency: 'usd',
             payment_method: req.body.payment_method,
             confirm: true,
-            return_url: 'https://buy-gomes.vercel.app//success.html', // Coloque a URL de retorno correta
+            return_url: 'https://buy-gomes.vercel.app/success.html', // Coloque a URL de retorno correta
         });
 
         res.json({ success: true });
