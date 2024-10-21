@@ -9,15 +9,21 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(express.static('public')); // Para servir arquivos estáticos da pasta 'public'
+app.use(express.static('public')); // Para servir arquivos estáticos, se necessário
 
-// Rota para servir o HTML
+// Rota para servir o HTML da página inicial
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// Rota para a página de pagamento
 app.get('/payment', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'payment.html'));
+    res.sendFile(path.join(__dirname, 'payment.html'));
+});
+
+// Rota para a página de sucesso
+app.get('/success', (req, res) => {
+    res.sendFile(path.join(__dirname, 'success.html'));
 });
 
 // Rota de pagamento
@@ -28,9 +34,12 @@ app.post('/api/payment', async (req, res) => {
             currency: 'usd',
             payment_method: req.body.payment_method,
             confirm: true,
+            // Se você estiver usando return_url, coloque aqui
+            // return_url: 'http://localhost:3000/success', // URL da página de sucesso (opcional, se você estiver usando)
         });
 
-        res.json({ success: true });
+        // Redireciona para a página de sucesso
+        res.redirect('/success');
     } catch (error) {
         res.json({ success: false, error: error.message });
     }
