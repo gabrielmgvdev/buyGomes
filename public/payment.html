@@ -139,7 +139,7 @@
                 document.getElementById('card-errors').innerText = error.message;
             } else {
                 // Enviar paymentMethod.id para o seu servidor
-                const response = await fetch('https://buy-gomes.vercel.app/api/payment', {
+                const response = await fetch('/api/payment', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -149,7 +149,8 @@
 
                 const paymentResponse = await response.json();
                 if (paymentResponse.success) {
-                    alert('Pagamento realizado com sucesso!');
+                    // Redireciona para a página de sucesso
+                    window.location.href = 'success.html'; // Redireciona para success.html
                 } else {
                     alert('Falha no pagamento: ' + paymentResponse.error);
                 }

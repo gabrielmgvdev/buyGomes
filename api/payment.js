@@ -16,6 +16,7 @@ router.post('/', async (req, res) => {
         });
         res.json({ success: true });
     } catch (error) {
+        console.error('Payment error:', error); // Adicione um log para ajudar no diagnóstico
         res.status(500).json({ success: false, error: error.message });
     }
 });
