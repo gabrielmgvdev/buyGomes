@@ -1,23 +1,23 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Stripe = require('stripe');
-const path = require('path');
 require('dotenv').config();
+const path = require('path');
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(express.static('public')); // Para servir arquivos estáticos, se necessário
+app.use(express.static('public')); // Para servir arquivos estáticos da pasta 'public'
 
 // Rota para servir o HTML
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get('/payment', (req, res) => {
-    res.sendFile(path.join(__dirname, 'payment.html'));
+    res.sendFile(path.join(__dirname, 'public', 'payment.html'));
 });
 
 // Rota de pagamento
