@@ -15,6 +15,10 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/payment', (req, res) => {
+    res.sendFile(path.join(__dirname, 'payment.html'));
+});
+
 // Rota de pagamento
 app.post('/api/payment', async (req, res) => {
     try {
